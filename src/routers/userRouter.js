@@ -3,7 +3,7 @@ import { UserController } from "../controllers/userController.js";
 import { requestBodyValidator } from "../middlewares/json/requestBodyValidator.js"
 import * as userSchema  from "../middlewares/json/schemas/userSchema.js";
 import * as userErrorHandler from "../middlewares/exceptions/userErrorHandler.js";
-import * as userTypeErrorHandler from "../middlewares/exceptions/userTypeErrorHandler.js";
+import * as userGroupErrorHandler from "../middlewares/exceptions/userGroupErrorHandler.js";
 
 
 export const userRouter = new Router();
@@ -14,7 +14,7 @@ userRouter.get("/",
 
 userRouter.post("/",
     requestBodyValidator(userSchema.post),
-    userTypeErrorHandler.exists(true),
+    userGroupErrorHandler.exists(true),
     UserController.create
 )
 
@@ -31,6 +31,6 @@ userRouter.delete("/:id",
 userRouter.put("/:id",
     userErrorHandler.exists(false),
     requestBodyValidator(userSchema.put),
-    userTypeErrorHandler.exists(true),
+    userGroupErrorHandler.exists(true),
     UserController.update
 )

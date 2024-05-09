@@ -13,15 +13,18 @@ export class UserController {
             }
         }
 
-        const userTypeId = queryParam["user-type-id"]
-        if (isNaN(userTypeId) === false) {
-            filter["user_type_id"] = Number(queryParam["user-type-id"])
+        const userGroupId = queryParam["user-group-id"]
+        if (isNaN(userGroupId) === false) {
+            filter["user-group-id"] = Number(queryParam["user-group-id"])
         }
 
         const query = {
             skip: queryParam["pg"] == null ? 0 : (Number(queryParam["qt"]) * (Number(queryParam["pg"]) - 1)),
             take: queryParam["qt"] == null ? 100 : Number(queryParam["qt"]),
             where: filter,
+            include: {
+                user_groups: true
+            }
         }
 
         res.send(await userService.findAll(query));
@@ -51,7 +54,7 @@ export class UserController {
         const data = {
             "id": res.locals.user["id"],
             "phone_number": req.body["phone_number"],
-            "user_type_id": req.body["user_type_id"],
+            "user_groups": req.body["user_groups"],
             "email": req.body["email"],
             "password": req.body["password"]
         }

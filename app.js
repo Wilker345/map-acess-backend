@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { userTypeRouter } from "./src/routers/userTypeRouter.js";
+import { userGroupRouter } from "./src/routers/userGroupRouter.js";
 import { errorHandler } from "./src/middlewares/exceptions/errorHandler.js";
 import { userRouter } from "./src/routers/userRouter.js";
 
@@ -12,7 +12,7 @@ app.use(cors({
     origin: '*'
 }));
 
-app.use('/user-types', userTypeRouter)
+app.use('/user-groups', userGroupRouter)
 app.use('/users', userRouter)
 
 app.use(errorHandler)

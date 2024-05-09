@@ -4,20 +4,11 @@ import {PrismaClient} from '@prisma/client'
 const prisma = new PrismaClient()
 
 export async function findAll(data) {
-    return prisma.userType.findMany({
-        skip: data["skip"],
-        take: data["take"],
-        where: {
-            description: {
-                startsWith: data["description"]
-            },
-        },
-    })
-
+    return prisma.userGroup.findMany(data)
 }
 
 export async function findById(id) {
-    return prisma.userType.findUnique({
+    return prisma.userGroup.findUnique({
         where: {
             id: id,
         },
@@ -26,28 +17,28 @@ export async function findById(id) {
 }
 
 export async function create(data) {
-    return prisma.userType.create({
+    return prisma.userGroup.create({
         data: {
-            description: data["description"]
+            text: data["text"]
         },
     })
 
 }
 
 export async function update(data) {
-    return prisma.userType.update({
+    return prisma.userGroup.update({
         where: {
             id: data["id"]
         },
         data: {
-            description: data["description"],
+            text: data["text"],
         },
     })
 
 }
 
 export async function deleteById(data) {
-    return prisma.userType.delete({
+    return prisma.userGroup.delete({
         where: {
             id: data["id"]
         },

@@ -8,7 +8,7 @@ export const exists = function(isAttribute) {
             const user = await userService.findById(id)
             if (user == null) {
                 let error = new Error("required user doesn't exists.")
-                error.cause = "required user doesn't exist."
+                error.cause = "required user doesn't exists."
                 error.statusCode = 404
                 next(error)
             }

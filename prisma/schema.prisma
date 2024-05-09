@@ -10,21 +10,20 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model UserType {
-  id          Int    @id @default(autoincrement())
-  description String @unique
-  user        User[]
+model UserGroup {
+  id    Int    @id @default(autoincrement())
+  text  String @unique
+  users User[]
 
-  @@map("user_type")
+  @@map("user_group")
 }
 
 model User {
-  id           Int      @id @default(autoincrement())
-  phone_number String   @unique
-  user_type_id Int
-  user_type    UserType @relation(fields: [user_type_id], references: [id])
-  email        String   @unique
+  id           Int         @id @default(autoincrement())
+  phone_number String      @unique
+  email        String      @unique
   password     String
+  user_groups  UserGroup[]
 
   @@map("user")
 }

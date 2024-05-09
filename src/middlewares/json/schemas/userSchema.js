@@ -9,9 +9,13 @@ export const post = {
             "format": "regex",
             "pattern": "^(?:\\([1-9]{2}\\)|[1-9]{2})[-.\\s]?9?[6-9]\\d{3}[-.\\s]?\\d{4}$"
         },
-        "user_type_id": {
-            "description": "User's type foreign key.",
-            "type": "integer"
+        "user_groups": {
+            "description": "Array of user group objects.",
+            "type": "array",
+            "items": {
+                "type": "object"
+            },
+            "minItems": 1
         },
         "email": {
             "description": "User's email. Does have a regex.",
@@ -25,12 +29,12 @@ export const post = {
             "pattern": "^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])[\\da-zA-Z].{7,254}$"
         }
     },
-    required: ["phone_number", "user_type_id", "email", "password"]
+    required: ["phone_number", "user_groups", "email", "password"]
 }
 
 export const put = {
     title: "Put user schema.",
-    description: "Don't need every attribute. Phone-number, password and email have regexes",
+    description: "Don't need every attribute. Phone-number, password and email have regexes. user-group is mandatory",
     type: "object",
     properties: {
         "phone_number": {
@@ -39,9 +43,13 @@ export const put = {
             "format": "regex",
             "pattern": "^(?:\\([1-9]{2}\\)|[1-9]{2})[-.\\s]?9?[6-9]\\d{3}[-.\\s]?\\d{4}$"
         },
-        "user_type_id": {
-            "description": "User's type foreign key.",
-            "type": "integer"
+        "user_groups": {
+            "description": "Array of user group objects.",
+            "type": "array",
+            "items": {
+                "type": "object"
+            },
+            "minItems": 1
         },
         "email": {
             "description": "User's email. Does have a regex.",
