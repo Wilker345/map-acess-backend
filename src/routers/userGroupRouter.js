@@ -25,7 +25,7 @@ userGroupRouter.delete("/:id",
 )
 
 userGroupRouter.put("/:id",
-    userGroupErrorHandler.exists(false),
     requestBodyValidator(userGroupSchema),
+    userGroupErrorHandler.exists(false),
     UserGroupController.update
 )

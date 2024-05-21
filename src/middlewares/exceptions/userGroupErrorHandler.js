@@ -1,9 +1,11 @@
 import * as userGroupService from "../../services/userGroupService.js";
 
 
-export const exists = function(isAttribute) {
+export const exists = function(isAttribute, isManyToMany) {
     return async function (req, res, next) {
-        const groupIdentifier = isAttribute === true? req.body["user_groups"] : Number(req.params["id"])
+        const bodyHashKey = isManyToMany === true ? req.body["user_groups"] : req.body["user_group_id"];
+        const groupIdentifier = isAttribute === true? bodyHashKey : Number(req.params["id"])
+
         if (isNaN(groupIdentifier) === false) {
             const userGroup = await userGroupService.findById(groupIdentifier)
             if (userGroup == null) {

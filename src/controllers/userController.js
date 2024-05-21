@@ -15,7 +15,7 @@ export class UserController {
 
         const userGroupId = queryParam["user-group-id"]
         if (isNaN(userGroupId) === false) {
-            filter["user-group-id"] = Number(queryParam["user-group-id"])
+            filter["user_group_id"] = Number(queryParam["user-group-id"])
         }
 
         const query = {

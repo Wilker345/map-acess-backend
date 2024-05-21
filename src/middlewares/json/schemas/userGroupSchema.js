@@ -1,5 +1,5 @@
 export const userGroupSchema = {
-    title: "user type schema.",
+    title: "group schema.",
     description: "needs only a text (group name)",
     type: "object",
     properties: {
