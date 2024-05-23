@@ -4,11 +4,11 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 export async function findAll(data) {
-    return prisma.answer.findMany(data)
+    return prisma.orientation.findMany(data)
 }
 
 export async function findById(id) {
-    return prisma.answer.findUnique({
+    return prisma.orientation.findUnique({
         where: {
             id: id,
         },
@@ -17,12 +17,12 @@ export async function findById(id) {
 }
 
 export async function create(data) {
-    return prisma.answer.create({
+    return prisma.orientation.create({
         data: {
             text: data["text"],
-            other: data["other"],
-            question: {
-                connect: {id: data["question_id"]}
+            value: data["value"],
+            answer: {
+                connect: {id: data["answer_id"]}
             },
         },
     })
@@ -30,15 +30,15 @@ export async function create(data) {
 }
 
 export async function update(data) {
-    return prisma.answer.update({
+    return prisma.orientation.update({
         where: {
             id: data["id"]
         },
         data: {
             text: data["text"],
-            other: data["other"],
-            question: {
-                connect: {id: data["question_id"]}
+            value: data["value"],
+            answer: {
+                connect: {id: data["answer_id"]}
             },
         },
     })
@@ -46,7 +46,7 @@ export async function update(data) {
 }
 
 export async function deleteById(data) {
-    return prisma.answer.delete({
+    return prisma.orientation.delete({
         where: {
             id: data["id"]
         },

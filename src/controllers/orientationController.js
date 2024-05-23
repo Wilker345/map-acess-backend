@@ -1,7 +1,7 @@
-import * as answerService from "../services/answerService.js"
+import * as orientationService from "../services/orientationService.js"
 
 
-export class AnswerController {
+export class OrientationController {
     static async findAll(req, res) {
         const queryParam = req.query
 
@@ -11,9 +11,9 @@ export class AnswerController {
             }
         }
 
-        const questionId = queryParam["question-id"]
-        if (isNaN(questionId) === false) {
-            filter["question_id"] = Number(queryParam["question-id"])
+        const answerId = queryParam["answer-id"]
+        if (isNaN(answerId) === false) {
+            filter["answer_id"] = Number(queryParam["answer-id"])
         }
 
         const query = {
@@ -21,14 +21,14 @@ export class AnswerController {
             take: queryParam["qt"] == null? 100 : Number(queryParam["qt"]),
             where: filter
         }
-        res.send(await answerService.findAll(query));
+        res.send(await orientationService.findAll(query));
 
     }
 
     static async create(req, res, next) {
         try {
-            const answer = await answerService.create(req.body)
-            res.status(201).send(answer)
+            const orientation = await orientationService.create(req.body)
+            res.status(201).send(orientation)
         } catch(err) {
             let serviceError = new Error(err.message);
             serviceError.cause = err.meta
@@ -38,23 +38,23 @@ export class AnswerController {
     }
 
     static findById(req, res) {
-        res.send(res.locals.answer);
+        res.send(res.locals.orientation);
     }
 
     static deleteById(req, res) {
-        answerService.deleteById(res.locals.answer).then(res.sendStatus(204))
+        orientationService.deleteById(res.locals.orientation).then(res.sendStatus(204))
     }
 
     static async update(req, res, next) {
         const data = {
-            "id": res.locals.answer["id"],
+            "id": res.locals.orientation["id"],
             "text": req.body["text"],
-            "other": req.body["other"],
-            "question_id": req.body["question_id"]
+            "value": req.body["value"],
+            "answer_id": req.body["answer_id"]
         }
         try {
-            const answer = await answerService.update(data)
-            res.send(answer)
+            const orientation = await orientationService.update(data)
+            res.send(orientation)
         } catch(err) {
             let serviceError = new Error(err.message);
             serviceError.cause = err.meta

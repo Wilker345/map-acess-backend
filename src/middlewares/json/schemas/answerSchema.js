@@ -9,10 +9,14 @@ export const answerSchema = {
             "format": "regex",
             "pattern": "^.{1,255}$"
         },
+        "other": {
+            "description": "true if it's a 'other answer' with a auxiliary text",
+            "type": "boolean",
+        },
         "question_id": {
             "description": "question's foreign key",
             "type": "integer",
         }
     },
-    required: ["text", "question_id"]
+    required: ["text", "other", "question_id"]
 }

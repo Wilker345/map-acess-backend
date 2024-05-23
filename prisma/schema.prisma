@@ -40,10 +40,22 @@ model Question {
 }
 
 model Answer {
-  id          Int      @id @default(autoincrement())
-  text        String   @unique
-  question    Question @relation(fields: [question_id], references: [id])
-  question_id Int
+  id           Int           @id @default(autoincrement())
+  text         String
+  other        Boolean
+  question     Question      @relation(fields: [question_id], references: [id])
+  question_id  Int
+  orientations Orientation[]
 
   @@map("answer")
+}
+
+model Orientation {
+  id        Int    @id @default(autoincrement())
+  text      String
+  value     Int
+  answer    Answer @relation(fields: [answer_id], references: [id])
+  answer_id Int
+
+  @@map("orientation")
 }
