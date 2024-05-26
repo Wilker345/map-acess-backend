@@ -16,6 +16,15 @@ export async function findById(id) {
 
 }
 
+export async function findByAnswer(AnswerId) {
+    return prisma.orientation.findFirst({
+        where: {
+            answer_id: AnswerId,
+        },
+    });
+
+}
+
 export async function create(data) {
     return prisma.orientation.create({
         data: {

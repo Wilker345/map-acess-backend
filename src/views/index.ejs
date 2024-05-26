@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!-- HTML INICIAL-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Relatório</title>
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    .json-container {
+        text-align: center;
+        width: 100%;
+        max-width: 800px; /* Ajuste conforme necessário */
+        padding: 20px;
+        box-sizing: border-box;
+        background-color: #fff; /* Adicionado para melhor visualização */
+        border-radius: 10px; /* Adicionado para melhor visualização */
+    }
+
+    .orientation-section {
+        border: 1px solid #ddd;
+        margin: 10px 0;
+    }
+
+    .question-list {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .question-item {
+        margin: 15px auto; /* Ajusta a margem horizontal para 'auto' para centralizar */
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        max-width: 600px; /* Define a largura máxima para os itens */
+        box-sizing: border-box; /* Inclui padding e border na largura total */
+    }
+    .form-content {
+        background-color: #f1f1f1;
+    }
+    .question-text {
+        font-weight: bold;
+    }
+
+    .orientation-text {
+        color: #555;
+    }
+
+</style>
+<body>
+<div class="json-container">
+    <h2 id="report-title">Relatório <%=jsonData.timestamp.toLocaleString()%></h2>
+    <div id="orientation-container">
+        <% Object.entries(jsonData.orientations).forEach(function([key, orientation]) { %>
+            <div class="orientation-section">
+                <h3><%= key %> (Value: <%= orientation.value %>)</h3>
+                <ul class="question-list">
+                    <% orientation.questions.forEach(function(question) { %>
+                        <li class="question-item">
+                            <div class="form-content">
+                                <div class="question-text">Pergunta: <%= question.text %></div>
+                                <div>Resposta: <%= question.answer %></div>
+                            </div>
+                            <div class="orientation-text">Orientação: <%= question.orientation %></div>
+                        </li>
+                    <% }); %>
+                </ul>
+            </div>
+        <% }); %>
+    </div>
+</div>
+
+</body>
+</html>

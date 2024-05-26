@@ -19,18 +19,18 @@ orientationRouter.post("/",
 )
 
 orientationRouter.get("/:id",
-    orientationErrorHandler.exists(false),
+    orientationErrorHandler.exists(false, false),
     OrientationController.findById
 )
 
 orientationRouter.delete("/:id",
-    orientationErrorHandler.exists(false),
+    orientationErrorHandler.exists(false, false),
     OrientationController.deleteById
 )
 
 orientationRouter.put("/:id",
     requestBodyValidator(orientationSchema),
-    orientationErrorHandler.exists(false),
+    orientationErrorHandler.exists(false, false),
     answerErrorHandler.exists(true),
     OrientationController.update
 )

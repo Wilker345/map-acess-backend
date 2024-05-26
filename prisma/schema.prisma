@@ -25,6 +25,7 @@ model User {
   email        String      @unique
   password     String
   user_groups  UserGroup[]
+  responses    Response[]
 
   @@map("user")
 }
@@ -51,11 +52,22 @@ model Answer {
 }
 
 model Orientation {
-  id        Int    @id @default(autoincrement())
+  id        Int        @id @default(autoincrement())
   text      String
   value     Int
-  answer    Answer @relation(fields: [answer_id], references: [id])
+  answer    Answer     @relation(fields: [answer_id], references: [id])
   answer_id Int
+  responses Response[]
 
   @@map("orientation")
+}
+
+model Response {
+  id           Int           @id @default(autoincrement())
+  timestamp    DateTime
+  orientations Orientation[]
+  user         User          @relation(fields: [user_id], references: [id])
+  user_id      Int
+
+  @@map("response")
 }

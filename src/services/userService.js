@@ -35,7 +35,6 @@ export async function create(data) {
 
 export async function update(data) {
     const setValue = data["user_groups"].map( ({id, text}) => ({id}) )
-
     return prisma.user.update({
         where: {
             id: data["id"]
