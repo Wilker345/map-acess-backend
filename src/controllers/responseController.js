@@ -3,7 +3,7 @@ import * as orientationService from "../services/orientationService.js"
 import * as answerService from "../services/answerService.js"
 import * as questionService from "../services/questionService.js"
 import * as userGroupService from "../services/userGroupService.js"
-
+import {config} from "../../config.js"
 
 // objeto de response está sendo chamado de responeReport devido ao express usar o nome response
 export class ResponseController {
@@ -147,7 +147,7 @@ export class ResponseController {
             jsonData.orientations[`${currentGroup["text"]}`]["value"] += responseReport.orientations[i]["value"]
         }
 
-        res.render('index', { jsonData: jsonData })
+        res.render('index', { jsonData: jsonData, config: config })
     }
 
 
