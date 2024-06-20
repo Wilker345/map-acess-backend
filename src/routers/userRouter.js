@@ -34,3 +34,7 @@ userRouter.put("/:id",
     userGroupErrorHandler.exists(true, true),
     UserController.update
 )
+
+userRouter.get("/:id/form",
+    userErrorHandler.exists(false),
+    UserController.getUserFormByUserId)

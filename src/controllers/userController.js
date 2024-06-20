@@ -1,4 +1,5 @@
 import * as userService from "../services/userService.js"
+import * as questionService from "../services/questionService.js"
 
 export class UserController {
     static async findAll(req, res) {
@@ -69,4 +70,38 @@ export class UserController {
         }
     }
 
+    static async getUserFormByUserId(req, res, next){
+        try {
+            const groups = res.locals.user["user_groups"]
+            let formQuestions = []
+            for (let group in groups) {
+                let query = {
+                    where: {
+                        "user_group_id": groups[group]["id"]
+                    },
+                    include: {
+                        answers: true
+                    }
+                }
+                /* Para agrupar as questões por grupo de usuário:
+                *
+                * let data = {}
+                * data[`${groups[group]["text"]}`] = await questService.findAll(query)
+                * formQuestions.push(data)
+                *
+                *  Para adicionar as questões diretamente:
+                * */
+                let groupQuestions = await questionService.findAll(query);
+                for (let question in groupQuestions) {
+                    formQuestions.push(groupQuestions[question])
+                }
+            }
+            res.send(formQuestions)
+        } catch (err) {
+            let serviceError = new Error(err.message);
+            serviceError.cause = err.meta
+            serviceError.statusCode = 400
+            next(serviceError)
+        }
+    }
 }
