@@ -17,6 +17,11 @@ export class ResponseController {
             filter["orientation_id"] = Number(queryParam["orientation-id"])
         }
 
+        const userId = queryParam["user-id"]
+        if (isNaN(userId) === false) {
+            filter["user_id"] = Number(queryParam["user-id"])
+        }
+
         const query = {
             skip: queryParam["pg"] == null ? 0 : (Number(queryParam["qt"]) * (Number(queryParam["pg"]) - 1)),
             take: queryParam["qt"] == null ? 100 : Number(queryParam["qt"]),
